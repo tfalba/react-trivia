@@ -49,9 +49,23 @@ function App () {
 
   function returnToCategory () {
     setCategory(null)
+    setQuestions([])
     setQuestion(0)
+    countCorrect(0)
   }
 
+  let footerStyle = {}
+  if (isCategory) {
+    footerStyle = {
+      height: '160px',
+      backgroundImage: `url(${isCategory.coverImg})`,
+      width: '100%',
+      backgroundSize: 'contain',
+      // position: 'absolute',
+      // bottom: '0',
+      marginBottom: '100px'
+    }
+  }
   return (
     <div className='flex-col'>
       {(isCategory === null) && (
@@ -60,7 +74,7 @@ function App () {
             <h1>TRACY'S TRIVIA TIME</h1>
             <img className='header-image' src={generalImage} alt='trivia-logo' />
           </div>
-          <div className='flex-center question-block'>
+          <div className='flex-center question-block animate__animated animate__fadeInUp'>
             {categories.map((category, idx) => (<Category setCategory={setCategory} category={category} key={category.id} />
             ))}
           </div>
@@ -75,13 +89,15 @@ function App () {
               <img className='header-image' src={isCategory.coverImg} alt={`${isCategory.name} logo`} />
             </div>
           </div>
-          <div className='flex-col-center question-block'>
+          <div className='flex-col question-block'>
             <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
-            <div className='question-card'>
-              {questions[idxQuestion] && (
-                <Question question={questions[idxQuestion]} key={idxQuestion} setQuestion={setQuestion} idxQuestion={idxQuestion} numberQuestions={questions.length} numberCorrect={numberCorrect} countCorrect={countCorrect} />
-              )}
+            {questions[idxQuestion] && (
+              <Question question={questions[idxQuestion]} key={idxQuestion} setQuestion={setQuestion} idxQuestion={idxQuestion} numberQuestions={questions.length} numberCorrect={numberCorrect} countCorrect={countCorrect} setCategory={setCategory} setQuestions={setQuestions} isCategory={isCategory} questions={questions} />
+            )}
+            <div className='footer' style={footerStyle}>
+              {/* <img src={`${isCategory.coverImg}`} /> */}
             </div>
+            {/* </div> */}
           </div>
         </div>
       )}

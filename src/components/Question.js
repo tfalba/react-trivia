@@ -9,6 +9,10 @@ function Question (props) {
   const [submission, submitAnswer] = useState(false)
   const { numberCorrect } = props
   const { countCorrect } = props
+  const { setCategory } = props
+  const { setQuestions } = props
+  const { isCategory } = props
+  const { questions } = props
   // const [numberCorrect, countCorrect] = useState(0)
 
   function chooseAnswer (answer) {
@@ -19,6 +23,12 @@ function Question (props) {
   function showResult () {
     setQuestion(idxQuestion + 1)
     submitAnswer(false)
+  }
+  function returnToCategory () {
+    setCategory(isCategory)
+    setQuestions(questions)
+    setQuestion(0)
+    countCorrect(0)
   }
 
   function submit () {
@@ -32,19 +42,19 @@ function Question (props) {
     }
     console.log(numberCorrect)
     submitAnswer(true)
-
-    // let scheduledFunction = false
-    // if (scheduledFunction) {
-    //   clearTimeout(scheduledFunction)
-    // }
-    // scheduledFunction = setTimeout(function () { showResult() }, 4000)
+    if (idxQuestion < numberQuestions - 1) {
+      let scheduledFunction = false
+      if (scheduledFunction) {
+        clearTimeout(scheduledFunction)
+      }
+      scheduledFunction = setTimeout(function () { showResult() }, 2200)
+    }
   }
-
   return (
-    <div>
+    <div className={(idxQuestion % 2 === 0) ? 'animate__animated animate__rotateInUpRight question-card' : 'animate__animated animate__rotateInUpLeft question-card'}>
       <div className='flex-sa'>
         <div className=''>
-          <h1>Question {`#${idxQuestion + 1}`}</h1>
+          <h2>Question {`#${idxQuestion + 1}`}</h2>
           <div className='question-title'>{question.question}</div>
           <div className='flex-col answer-block'>{question.shuffledAnswers.map((answer, idx) =>
             <div answer={answer} key={idx} onClick={() => chooseAnswer(answer)} className='flex'>
@@ -54,20 +64,42 @@ function Question (props) {
           )}
           </div>
           <div className='flex'>
-            <button className='category-button' onClick={() => submit()}>Submit</button>
+            {(!submission) && (
+              <button className='category-button' onClick={() => submit()}>Submit</button>
+            )}
+            {submission && (
+              <div className='category-button'>Submit</div>
+            )}
+            {/*
             {(idxQuestion > 0) && (
               <button className='category-button' onClick={() => setQuestion(idxQuestion - 1)}>Previous</button>
-            )}
-            {(idxQuestion < numberQuestions - 1) && (
+            )} */}
+            {/* {(idxQuestion < numberQuestions - 1) && submission && (
               <button className='category-button' onClick={() => showResult()}>Next</button>
-            )}
+            )} */}
           </div>
         </div>
       </div>
-      {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (<div className='answer-prompt'>YES!!! Correct: {numberCorrect}</div>)}
-      {(submission && (guess !== question.correct_answer) && (idxQuestion < numberQuestions - 1)) && (<div className='answer-prompt'>NO the correct answer is {question.correct_answer} Correct: {numberCorrect}</div>)}
-      {(submission && guess === question.correct_answer && (idxQuestion === numberQuestions - 1)) && (<div className='answer-prompt'>YES!!! COMPLETE</div>)}
-      {(submission && (guess !== question.correct_answer) && (idxQuestion === numberQuestions - 1)) && (<div className='answer-prompt'>COMPLETE NO the correct answer is {question.correct_answer}</div>)}
+      {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
+        <div className='answer-prompt animate__animated animate__fadeIn'>YES!!!
+          <div> Correct: {numberCorrect} of {idxQuestion + 1}
+          </div>
+        </div>)}
+      {(submission && (guess !== question.correct_answer) && (idxQuestion < numberQuestions - 1)) && (
+        <div className='answer-prompt animate__animated animate__fadeIn'>NO the correct answer is {question.correct_answer}
+          <div>Correct: {numberCorrect} of {idxQuestion + 1}
+          </div>
+        </div>)}
+      {(submission && guess === question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
+        <div className='answer-prompt animate__animated animate__fadeIn'>YES!!!
+          <div> Final Total: {numberCorrect} of {numberQuestions}</div>
+          <div className='category-button' onClick={() => returnToCategory()}>Repeat Category?</div>
+        </div>)}
+      {(submission && (guess !== question.correct_answer) && (idxQuestion === numberQuestions - 1)) && (
+        <div className='answer-prompt animate__animated animate__fadeIn'>NO the correct answer is {question.correct_answer}
+          <div> Final Total: {numberCorrect} of {numberQuestions}</div>
+          <div className='category-button' onClick={() => returnToCategory()}>Repeat Category?</div>
+        </div>)}
     </div>
   )
 }

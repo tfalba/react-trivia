@@ -15,9 +15,9 @@
 
 body {
   background-color: rgba(2, 15, 41, 0.988);
-  background-color: #02050ceb;
-  background-image: url('../src/images/black-waves.jpg');
-  background-size: cover;
+  /*background-color: #02050ceb;
+  background-image: url('../src/images/black-texture.jpg');
+  background-size: cover; */
 
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 400;
@@ -71,9 +71,18 @@ body {
 }
 
 .answer-prompt {
-  margin-top: 50px;
-  font-size: 32px;
-  text-align: center;
+  /* margin-top: 50px; */
+  font-size: 26px;
+  font-style: italic;
+  /* text-align: center; */
+  position: fixed;
+  bottom: 150px;
+  left: 800px;
+  width: 400px;
+  background-color:greenyellow;
+  border: solid 4px black;
+  border-radius: 15px;
+  color: black;
 }
 
 .image {
@@ -82,10 +91,10 @@ body {
 }
 
 .header-image {
-  padding-top: 30px;
-  padding-left: 30px;
-  width: 220px;
-  height: 200px;
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 120px;
+  height: 110px;
 }
 
 .category-card {
@@ -94,8 +103,8 @@ body {
   font-size: 25px;
   font: weight 800;
   color: white;
-  background-color: rgba(5, 42, 110, 0.988);
-  background-image: linear-gradient( rgba(51, 78, 133, 0.651), rgba(2, 15, 41, 0.988));
+  /* background-color: rgba(5, 42, 110, 0.988); */
+  background-image: linear-gradient( rgba(51, 78, 133, 0.891), rgba(2, 15, 41, 0.988));
   border: solid 4px rgba(86, 104, 141, 0.651);
   border-radius: 15px;
   margin: 15px;
@@ -106,12 +115,13 @@ body {
 }
 
 .question-card {
-  width: 650px;
+  /* width: 650px; */
+  display: flex;
   font-size: 25px;
   font: weight 800;
   color: white;
-  background-color: rgba(5, 42, 110, 0.988);
-  background-image: linear-gradient( rgba(51, 78, 133, 0.651), rgba(2, 15, 41, 0.988));
+  /* background-color: rgba(5, 42, 110, 0.988); */
+  background-image: linear-gradient( rgba(51, 78, 133, 0.891), rgba(2, 15, 41, 0.988));
   border: solid 4px rgba(86, 104, 141, 0.651);
   border-radius: 15px;
   margin: 15px;
@@ -126,7 +136,7 @@ body {
 .category-button {
   font-size: 24px;
   color: white;
-  background-color: rgba(2, 1, 16, 0.002);
+  background-color: rgba(2, 1, 16, 0.902);
   border: solid 2px black;
   border-radius: 15px;
   margin: 5px;
@@ -167,13 +177,13 @@ body {
 
 .header {
   display: flex;
-  align-content: center;
-  justify-content: center;
-  height: 300px;
+  /* align-content: center; */
+  /* justify-content: center; */
+  height: 150px;
   /* background-color: rgb(5, 42, 110); */
   /* background-color: rgba(5, 42, 123, 0.951); */
-  background-image: linear-gradient( rgba(51, 78, 133, 0.651), rgba(2, 15, 41, 0.988));
-
+  background-image: linear-gradient( rgba(51, 78, 133, 0.851), rgba(2, 15, 41, 0.988));
+  padding-left: 50px;
   color: white;
   padding-top: 10px;
   margin-bottom: 50px;
@@ -183,9 +193,9 @@ h1 {
 }
 
 .header h1 {
-  font-size: 70px;
+  font-size: 40px;
   /* padding-left: 25px; */
-  padding-top: 40px;
+  padding-top: 20px;
   display: flex;
   align-content: center;
   padding-right: 15px;
@@ -207,5 +217,24 @@ h1 {
   font-size: 25px;
   font-weight: 600;
   padding: 8px;
+  width: 80%;
 }
 
+
+.animate__animated.animate__fadeInLeft {
+  --animate-duration: 2s;
+}
+.animate__animated.animate__fadeInUp {
+  --animate-duration: 1500ms;
+}
+.animate__animated.animate__rotateInUpRight {
+  --animate-duration: 1s;
+}
+
+.animate__animated.animate__rotateInUpLeft {
+  --animate-duration: 1s;
+}
+
+.animate__animated.animate__bounceIn {
+  --animate-duration: 2s;
+}
