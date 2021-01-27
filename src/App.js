@@ -1,112 +1,92 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
-// let unshuffled = ['hello', 'a', 't', 'q', 1, 2, 3, {cats: true}]
-
-// let shuffled = unshuffled
-//   .map((a) => ({sort: Math.random(), value: a}))
-//   .sort((a, b) => a.sort - b.sort)
-//   .map((a) => a.value)
+import Category from './components/Category.js'
+import Question from './components/Question.js'
+import cleanData from './components/CleanData.js'
+import generalImage from './images/general-logo.png'
 
 function App () {
   const [categories, setCategories] = useState([])
   useEffect(() => {
     axios.get('https://opentdb.com/api_category.php')
       .then(res => {
-        const myCategories = []
-        for (let i = 0; i < 15; i++) {
-          myCategories.push(res.data.trivia_categories[i])
-        }
-        setCategories(myCategories)
-        // setCategories(res.data.trivia_categories)
+        const categories = cleanData(res.data.trivia_categories)
+        setCategories(categories)
       })
   }, [])
 
-  const [isCategory, setCategory] = useState({})
+  const [isCategory, setCategory] = useState(null)
   const [questions, setQuestions] = useState([])
+  const [idxQuestion, setQuestion] = useState(0)
+  const [numberCorrect, countCorrect] = useState(0)
 
   useEffect(() => {
-    // setCategory(isCategory)
-    const getQuestions = () => {
+    if (isCategory) {
       axios.get(`https://opentdb.com/api.php?amount=10&category=${parseInt(isCategory.id)}&difficulty=medium&type=multiple&encode=url3986`)
         .then(res => {
-          // console.log(res.data.results)
-          setQuestions(res.data.results)
+          const questions = []
+          for (const question of res.data.results) {
+            const answers = []
+            for (const answer of question.incorrect_answers) {
+              answers.push(decodeURIComponent(answer))
+            }
+            answers.push(decodeURIComponent(question.correct_answer))
+            const shuffledAnswers = answers
+              .map((a) => ({ sort: Math.random(), value: a }))
+              .sort((a, b) => a.sort - b.sort)
+              .map((a) => a.value)
+            question.shuffledAnswers = shuffledAnswers
+            question.question = decodeURIComponent(question.question)
+            question.correct_answer = decodeURIComponent(question.correct_answer)
+            questions.push(question)
+          }
+          setQuestions(questions)
         })
     }
-    getQuestions()
-    // console.log(questions)
-  }, [isCategory.id])
+  }
+  , [isCategory])
+
+  function returnToCategory () {
+    setCategory(null)
+    setQuestion(0)
+  }
 
   return (
     <div className='flex-col'>
-      {(isCategory.id !== 9 && isCategory.id !== 10) && (
-        <div className='flex-col'>
-
-          <h1>Trivia Categories</h1>
-          <div className='flex-center'>
+      {(isCategory === null) && (
+        <div className='flex-col category-set'>
+          <div className='flex header'>
+            <h1>TRACY'S TRIVIA TIME</h1>
+            <img className='header-image' src={generalImage} alt='trivia-logo' />
+          </div>
+          <div className='flex-center question-block'>
             {categories.map((category, idx) => (<Category setCategory={setCategory} category={category} key={category.id} />
             ))}
-
           </div>
         </div>
-
       )}
 
-      {(isCategory.id > 0) && (
-
-        <div className='flex-col'><h1>Selected Category</h1>
-          <Category setCategory={setCategory} category={isCategory} />
+      {isCategory && (
+        <div className='flex-col'>
+          <div className='flex-col category-set'>
+            <div className='flex header'>
+              <h1>{isCategory.name}</h1>
+              <img className='header-image' src={isCategory.coverImg} alt={`${isCategory.name} logo`} />
+            </div>
+          </div>
+          <div className='flex-col-center question-block'>
+            <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
+            <div className='question-card'>
+              {questions[idxQuestion] && (
+                <Question question={questions[idxQuestion]} key={idxQuestion} setQuestion={setQuestion} idxQuestion={idxQuestion} numberQuestions={questions.length} numberCorrect={numberCorrect} countCorrect={countCorrect} />
+              )}
+            </div>
+          </div>
         </div>
       )}
-
-      <div className='flex-col'><h1>Questions</h1>
-
-        {questions.map((question, idx) => (<Question question={question} key={idx} />))}
-
-      </div>
-
     </div>
   )
 }
 
-function Category (props) {
-  const { category } = props
-  const { setCategory } = props
-
-  return (
-    <div>
-      <div className='category-button' onClick={() => setCategory(category)}>{category.name}</div>
-    </div>
-  )
-}
-
-function Question (props) {
-  const { question } = props
-  // const { chooseAnswer } = props
-  const [guess, chooseAnswer] = useState('')
-  const answers = []
-  for (const answer of question.incorrect_answers) {
-    answers.push(answer)
-  }
-  answers.push(question.correct_answer)
-  const shuffledAnswers = answers
-    .map((a) => ({ sort: Math.random(), value: a }))
-    .sort((a, b) => a.sort - b.sort)
-    .map((a) => a.value)
-
-  return (
-    <div className='flex-sb'>
-      <div className='flex-col'>
-        <div>{decodeURIComponent(question.question)}</div>
-        <ul>{shuffledAnswers.map((answer, idx) =>
-          <li onClick={() => chooseAnswer(answer)} answer={answer} key={idx}>{decodeURIComponent(answer)}</li>)}
-        </ul>
-      </div>
-      {(guess === question.correct_answer) && (<div className='answer-prompt'>YES</div>)}
-      {(guess !== question.correct_answer && guess !== '') && (<div className='answer-prompt'>NO</div>)}
-    </div>
-  )
-}
 export default App
