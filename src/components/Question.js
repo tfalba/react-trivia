@@ -82,10 +82,14 @@ function Question (props) {
         </div>
       </div>
       {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
-        <div className='answer-prompt animate__animated animate__fadeIn'>YES!!!
-          <div> Correct: {numberCorrect} of {idxQuestion + 1}
+        <div>
+          <div className='answer-prompt animate__animated animate__fadeIn'>YES!!!
+            <div> Correct: {numberCorrect} of {idxQuestion + 1}
+            </div>
           </div>
-        </div>)}
+          <Confetti />
+        </div>
+      )}
       {(submission && (guess !== question.correct_answer) && (idxQuestion < numberQuestions - 1)) && (
         <div className='answer-prompt animate__animated animate__fadeIn'>NO the correct answer is {question.correct_answer}
           <div>Correct: {numberCorrect} of {idxQuestion + 1}
