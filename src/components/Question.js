@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Confetti from 'react-confetti'
 
 function Question (props) {
   const { question } = props
@@ -13,7 +14,6 @@ function Question (props) {
   const { setQuestions } = props
   const { isCategory } = props
   const { questions } = props
-  // const [numberCorrect, countCorrect] = useState(0)
 
   function chooseAnswer (answer) {
     if (!submission) {
@@ -47,14 +47,22 @@ function Question (props) {
       if (scheduledFunction) {
         clearTimeout(scheduledFunction)
       }
-      scheduledFunction = setTimeout(function () { showResult() }, 2200)
+      scheduledFunction = setTimeout(function () { showResult() }, 2800)
     }
   }
+
   return (
     <div className={(idxQuestion % 2 === 0) ? 'animate__animated animate__rotateInUpRight question-card' : 'animate__animated animate__rotateInUpLeft question-card'}>
       <div className='flex-sa'>
         <div className=''>
-          <h2>Question {`#${idxQuestion + 1}`}</h2>
+          <h2>Question {`#${idxQuestion + 1}`} of {numberQuestions}
+            {(question.difficulty === 'easy') && (
+              <span className='level-easy answer-block'>Level: {question.difficulty.toUpperCase()}</span>)}
+            {(question.difficulty === 'medium') && (
+              <span className='level-medium answer-block'>Level: {question.difficulty.toUpperCase()}</span>)}
+            {(question.difficulty === 'hard') && (
+              <span className='level-hard answer-block'>Level: {question.difficulty.toUpperCase()}</span>)}
+          </h2>
           <div className='question-title'>{question.question}</div>
           <div className='flex-col answer-block'>{question.shuffledAnswers.map((answer, idx) =>
             <div answer={answer} key={idx} onClick={() => chooseAnswer(answer)} className='flex'>
@@ -70,13 +78,6 @@ function Question (props) {
             {submission && (
               <div className='category-button'>Submit</div>
             )}
-            {/*
-            {(idxQuestion > 0) && (
-              <button className='category-button' onClick={() => setQuestion(idxQuestion - 1)}>Previous</button>
-            )} */}
-            {/* {(idxQuestion < numberQuestions - 1) && submission && (
-              <button className='category-button' onClick={() => showResult()}>Next</button>
-            )} */}
           </div>
         </div>
       </div>
@@ -100,6 +101,9 @@ function Question (props) {
           <div> Final Total: {numberCorrect} of {numberQuestions}</div>
           <div className='category-button' onClick={() => returnToCategory()}>Repeat Category?</div>
         </div>)}
+      {(submission && (numberCorrect === parseInt(numberQuestions))) && (
+        <Confetti />
+      )}
     </div>
   )
 }
