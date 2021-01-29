@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Confetti from 'react-confetti'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -14,8 +14,8 @@ function Question (props) {
   const { countCorrect } = props
   const { setCategory } = props
   const { setQuestions } = props
-  const { isCategory } = props
-  const { questions } = props
+  // const { isCategory } = props
+  // const { questions } = props
 
   function chooseAnswer (answer) {
     if (!submission) {
@@ -181,7 +181,7 @@ function Question (props) {
         <>
           <Modal show={show} onHide={showResult}>
             <Modal.Header closeButton>
-              <Modal.Title>Correct!!!</Modal.Title>
+              <Modal.Title>Incorrect</Modal.Title>
             </Modal.Header>
             <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
