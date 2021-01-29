@@ -84,6 +84,27 @@ function App () {
       marginBottom: '100px'
     }
   }
+
+  let headerBarStyle = {
+    // height: '150px',
+    backgroundImage: `url(${generalImage})`,
+    width: '20%',
+    backgroundSize: 'contain',
+    backgroundRepeatX: 'no-repeat',
+    backgroundRepeatY: 'no-repeat'
+    // marginBottom: '100px'
+  }
+  if (isCategory) {
+    headerBarStyle = {
+      // height: '150px',
+      backgroundImage: `url(${isCategory.coverImg})`,
+      width: '20%',
+      backgroundSize: 'contain',
+      backgroundRepeatX: 'no-repeat',
+      backgroundRepeatY: 'no-repeat'
+      // marginBottom: '100px'
+    }
+  }
   const handleSelect = (event) => {
     setDifficulty(event)
   }
@@ -95,40 +116,42 @@ function App () {
   return (
     <div className='flex-col'>
       {(isCategory === null) && (
-        <div className='flex-col category-set'>
+        <div className='flex-col-center category-set'>
+
           <div className='flex header'>
             <div className='header-title'>TRACY'S TRIVIA TIME</div>
-            <img className='header-image' src={generalImage} alt='trivia-logo' />
+            <div className='header-bar' style={headerBarStyle} />
+            {/* <img className='header-image' src={generalImage} alt='trivia-logo' /> */}
             {/* </div> */}
-            <div className='flex difficulty-level'>
-              <DropdownButton
-                className='levels'
-                alignRight
-                title='Choose a difficulty level'
-                id='dropdown-basic'
-                onSelect={handleSelect}
-              >
-                <Dropdown.Item eventKey='easy'>Easy</Dropdown.Item>
-                <Dropdown.Item eventKey='medium'>Medium</Dropdown.Item>
-                <Dropdown.Item eventKey='hard'>Hard</Dropdown.Item>
-                <Dropdown.Item eventKey='any'>Any</Dropdown.Item>
-              </DropdownButton>
-              {difficulty && (<div className='difficulty-value'>{difficulty.toUpperCase()}</div>)}
-              <DropdownButton
-                className='levels'
-                alignRight
-                title='Choose number of questions'
-                id='dropdown-basic'
-                onSelect={handleSelectNumberQuestions}
-              >
-                <Dropdown.Item eventKey='5'>Five</Dropdown.Item>
-                <Dropdown.Item eventKey='10'>Ten</Dropdown.Item>
-                <Dropdown.Item eventKey='20'>Twenty</Dropdown.Item>
-              </DropdownButton>
-              {difficulty && (<div className='difficulty-value'>{numberQuestions}</div>)}
-            </div>
-          </div>
 
+          </div>
+          <div className='flex difficulty-level'>
+            <DropdownButton
+              className='levels'
+              alignRight
+              title='Choose a difficulty level'
+              id='dropdown-basic'
+              onSelect={handleSelect}
+            >
+              <Dropdown.Item eventKey='easy'>Easy</Dropdown.Item>
+              <Dropdown.Item eventKey='medium'>Medium</Dropdown.Item>
+              <Dropdown.Item eventKey='hard'>Hard</Dropdown.Item>
+              <Dropdown.Item eventKey='any'>Any</Dropdown.Item>
+            </DropdownButton>
+            {difficulty && (<div className='difficulty-value'>{difficulty.toUpperCase()}</div>)}
+            <DropdownButton
+              className='levels'
+              alignRight
+              title='Choose number of questions'
+              id='dropdown-basic'
+              onSelect={handleSelectNumberQuestions}
+            >
+              <Dropdown.Item eventKey='3'>Three</Dropdown.Item>
+              <Dropdown.Item eventKey='10'>Ten</Dropdown.Item>
+              <Dropdown.Item eventKey='20'>Twenty</Dropdown.Item>
+            </DropdownButton>
+            {difficulty && (<div className='difficulty-value'>{numberQuestions}</div>)}
+          </div>
           {/* <div>Number of Questions</div> */}
           <div className='flex-center question-block animate__animated animate__fadeInUp'>
             {categories.map((category, idx) => (<Category setCategory={setCategory} category={category} key={category.id} />
@@ -142,8 +165,9 @@ function App () {
           <div className='flex-col category-set'>
             <div className='flex header'>
               <div className='header-title'>{isCategory.name}</div>
-              <img className='header-image' src={isCategory.coverImg} alt={`${isCategory.name} logo`} />
+              <div className='header-bar' style={headerBarStyle} />
             </div>
+
           </div>
           <div className='flex-col question-block'>
             <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
@@ -159,6 +183,3 @@ function App () {
 }
 
 export default App
-
-// &token=54f7bf78d1c5a486a2d9dd4f1508cc26816b6fda6fcc11d696953d57cb1cddc9
-// &token=54f7bf78d1c5a486a2d9dd4f1508cc26816b6fda6fcc11d696953d57cb1cddc9

@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Confetti from 'react-confetti'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
 function Question (props) {
   const { question } = props
@@ -21,18 +23,25 @@ function Question (props) {
     }
   }
   function showResult () {
+    console.log(show)
+
+    setShow(false)
+    console.log(show)
     setQuestion(idxQuestion + 1)
     submitAnswer(false)
+    if (idxQuestion === numberQuestions - 1) {
+      returnToCategory(null, [])
+    }
   }
-  function returnToCategory () {
-    setCategory(isCategory)
-    setQuestions(questions)
+  function returnToCategory (categoryOption, questionsOption) {
+    setCategory(categoryOption)
+    setQuestions(questionsOption)
     setQuestion(0)
     countCorrect(0)
   }
 
   function submit () {
-    console.log(numberCorrect)
+    console.log({ numberCorrect })
     console.log(guess)
     console.log(question.correct_answer)
     if (guess === question.correct_answer) {
@@ -41,17 +50,26 @@ function Question (props) {
       countCorrect(numberCorrect)
     }
     console.log(numberCorrect)
+    console.log(show)
     submitAnswer(true)
-    if (idxQuestion < numberQuestions - 1) {
+    // HandleShow()
+
+    // setShow(true)
+    console.log(show)
+    setShow(true)
+
+    if (idxQuestion === numberQuestions - 1) {
       let scheduledFunction = false
       if (scheduledFunction) {
         clearTimeout(scheduledFunction)
       }
-      scheduledFunction = setTimeout(function () { showResult() }, 2800)
+      scheduledFunction = setTimeout(function () { setShow(true) }, 2000)
     }
   }
+  const [show, setShow] = useState(false)
 
   return (
+
     <div className={(idxQuestion % 2 === 0) ? 'animate__animated animate__rotateInUpRight question-card' : 'animate__animated animate__rotateInUpLeft question-card'}>
       <div className='flex-sa'>
         <div className=''>
@@ -81,7 +99,7 @@ function Question (props) {
           </div>
         </div>
       </div>
-      {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
+      {/* {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
         <div>
           <div className='answer-prompt animate__animated animate__fadeIn'>YES!!!
             <div> Correct: {numberCorrect} of {idxQuestion + 1}
@@ -107,6 +125,77 @@ function Question (props) {
         </div>)}
       {(submission && (numberCorrect === parseInt(numberQuestions))) && (
         <Confetti />
+      )} */}
+      {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
+        <>
+          <Modal show={show} onHide={showResult}>
+            <Modal.Header closeButton>
+              <Modal.Title>Correct!!!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
+            <Modal.Footer>
+              <Button variant='primary' onClick={showResult}>
+                Next Question
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Confetti />
+        </>
+      )}
+      {(submission && guess !== question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
+        <>
+          <Modal show={show} onHide={showResult}>
+            <Modal.Header closeButton>
+              <Modal.Title>Incorrect</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
+            <Modal.Footer>
+              <Button variant='primary' onClick={showResult}>
+                Next Question
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      )}
+      {(submission && guess === question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
+        <>
+          <Modal show={show} onHide={showResult}>
+            <Modal.Header closeButton>
+              <Modal.Title>Correct!!!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
+            <Modal.Footer>
+              <Button variant='primary' onClick={showResult}>
+                Return to Categories
+              </Button>
+
+              <Button variant='secondary' onClick={showResult}>
+                Repeat Category Questions?
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Confetti />
+        </>
+      )}
+      {(submission && guess !== question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
+        <>
+          <Modal show={show} onHide={showResult}>
+            <Modal.Header closeButton>
+              <Modal.Title>Correct!!!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
+            <Modal.Footer>
+              <Button variant='primary' onClick={showResult}>
+                Return to Categories
+              </Button>
+
+              <Button variant='secondary' onClick={showResult}>
+                Repeat Category Questions?
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Confetti />
+        </>
       )}
     </div>
   )
