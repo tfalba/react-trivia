@@ -3,26 +3,20 @@ import Confetti from 'react-confetti'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
-function Question (props) {
-  const { question } = props
-  const { numberQuestions } = props
-  const { setQuestion } = props
-  const { idxQuestion } = props
+// import ModalLink from './ModalLink'
+// import { chooseAnswer, nextQuestion, submit } from '../question-functions'
+
+function Question ({ question, key, setQuestion, idxQuestion, numberQuestions, numberCorrect, countCorrect, setCategory, setQuestions, isCategory, questions }) {
   const [guess, setGuess] = useState('')
   const [submission, submitAnswer] = useState(false)
-  const { numberCorrect } = props
-  const { countCorrect } = props
-  const { setCategory } = props
-  const { setQuestions } = props
-  // const { isCategory } = props
-  // const { questions } = props
+  const [show, setShow] = useState(false)
 
   function chooseAnswer (answer) {
     if (!submission) {
       setGuess(answer)
     }
   }
-  function showResult () {
+  function nextQuestion () {
     console.log(show)
 
     setShow(false)
@@ -58,16 +52,35 @@ function Question (props) {
     console.log(show)
     setShow(true)
 
-    if (idxQuestion === numberQuestions - 1) {
-      let scheduledFunction = false
-      if (scheduledFunction) {
-        clearTimeout(scheduledFunction)
-      }
-      scheduledFunction = setTimeout(function () { setShow(true) }, 2000)
-    }
+    // if (idxQuestion === numberQuestions - 1) {
+    //   let scheduledFunction = false
+    //   if (scheduledFunction) {
+    //     clearTimeout(scheduledFunction)
+    //   }
+    //   scheduledFunction = setTimeout(function () { setShow(true) }, 2000)
+    // }
   }
-  const [show, setShow] = useState(false)
+  const [previousShow, setPreviousShow] = useState()
+  const [previousSubmission, setPreviousSubmission] = useState()
+  const [previousGuess, setPreviousGuess] = useState()
+  const [previousCount, setPreviousCount] = useState()
+  if (show !== previousShow) {
+    setShow(show)
+    setPreviousShow(show)
+  }
 
+  if (submission !== previousSubmission) {
+    submitAnswer(submission)
+    setPreviousSubmission(submission)
+  }
+  if (guess !== previousGuess) {
+    setGuess(guess)
+    setPreviousGuess(guess)
+  }
+  if (numberCorrect !== previousCount) {
+    countCorrect(numberCorrect)
+    setPreviousCount(numberCorrect)
+  }
   return (
 
     <div className={(idxQuestion % 2 === 0) ? 'animate__animated animate__rotateInUpRight question-card' : 'animate__animated animate__rotateInUpLeft question-card'}>
@@ -99,42 +112,15 @@ function Question (props) {
           </div>
         </div>
       </div>
-      {/* {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
-        <div>
-          <div className='answer-prompt animate__animated animate__fadeIn'>YES!!!
-            <div> Correct: {numberCorrect} of {idxQuestion + 1}
-            </div>
-          </div>
-          <Confetti />
-        </div>
-      )}
-      {(submission && (guess !== question.correct_answer) && (idxQuestion < numberQuestions - 1)) && (
-        <div className='answer-prompt animate__animated animate__fadeIn'>NO the correct answer is {question.correct_answer}
-          <div>Correct: {numberCorrect} of {idxQuestion + 1}
-          </div>
-        </div>)}
-      {(submission && guess === question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
-        <div className='answer-prompt animate__animated animate__fadeIn'>YES!!!
-          <div> Final Total: {numberCorrect} of {numberQuestions}</div>
-          <div className='category-button' onClick={() => returnToCategory()}>Repeat Category?</div>
-        </div>)}
-      {(submission && (guess !== question.correct_answer) && (idxQuestion === numberQuestions - 1)) && (
-        <div className='answer-prompt animate__animated animate__fadeIn'>NO the correct answer is {question.correct_answer}
-          <div> Final Total: {numberCorrect} of {numberQuestions}</div>
-          <div className='category-button' onClick={() => returnToCategory()}>Repeat Category?</div>
-        </div>)}
-      {(submission && (numberCorrect === parseInt(numberQuestions))) && (
-        <Confetti />
-      )} */}
       {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
         <>
-          <Modal show={show} onHide={showResult}>
+          <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
               <Modal.Title>Correct!!!</Modal.Title>
             </Modal.Header>
             <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
-              <Button variant='primary' onClick={showResult}>
+              <Button variant='primary' onClick={nextQuestion}>
                 Next Question
               </Button>
             </Modal.Footer>
@@ -144,13 +130,13 @@ function Question (props) {
       )}
       {(submission && guess !== question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
         <>
-          <Modal show={show} onHide={showResult}>
+          <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
               <Modal.Title>Incorrect</Modal.Title>
             </Modal.Header>
             <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
-              <Button variant='primary' onClick={showResult}>
+              <Button variant='primary' onClick={nextQuestion}>
                 Next Question
               </Button>
             </Modal.Footer>
@@ -159,17 +145,17 @@ function Question (props) {
       )}
       {(submission && guess === question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
         <>
-          <Modal show={show} onHide={showResult}>
+          <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
               <Modal.Title>Correct!!!</Modal.Title>
             </Modal.Header>
             <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
-              <Button variant='primary' onClick={showResult}>
+              <Button variant='primary' onClick={nextQuestion}>
                 Return to Categories
               </Button>
 
-              <Button variant='secondary' onClick={showResult}>
+              <Button variant='secondary' onClick={nextQuestion}>
                 Repeat Category Questions?
               </Button>
             </Modal.Footer>
@@ -179,17 +165,17 @@ function Question (props) {
       )}
       {(submission && guess !== question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
         <>
-          <Modal show={show} onHide={showResult}>
+          <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
               <Modal.Title>Incorrect</Modal.Title>
             </Modal.Header>
             <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
-              <Button variant='primary' onClick={showResult}>
+              <Button variant='primary' onClick={nextQuestion}>
                 Return to Categories
               </Button>
 
-              <Button variant='secondary' onClick={showResult}>
+              <Button variant='secondary' onClick={nextQuestion}>
                 Repeat Category Questions?
               </Button>
             </Modal.Footer>
@@ -197,6 +183,28 @@ function Question (props) {
           <Confetti />
         </>
       )}
+      {/* {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
+        <>
+          <ModalLink show={show} onClick={nextQuestion()} title='Correct!!!' body='Yes, the answer is ' primary='primary' secondary='' primaryText='Next Question' secondaryText='' answer={question.correct_answer} repeatQuestions='' />
+          <Confetti />
+        </>
+      )}
+      {(submission && guess !== question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
+        <>
+          <ModalLink show={show} onClick={nextQuestion()} title='Incorrect' body='No, the answer is ' secondary='' primaryText='Next Question' secondaryText='' answer={question.correct_answer} repeatQuestions='' />
+        </>
+      )}
+      {(submission && guess === question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
+        <>
+          <ModalLink show={show} onClick={nextQuestion()} title='Correct!!!' body='Yes, the answer is ' secondary='secondary' primaryText='Return to Categories' secondaryText='Repeat Category Questions' answer={question.correct_answer} repeatQuestions={nextQuestion()} />
+          <Confetti />
+        </>
+      )}
+      {(submission && guess !== question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
+        <>
+          <ModalLink show={show} onClick={nextQuestion()} title='Incorrect' body='No, the answer is ' secondary='secondary' primaryText='Return to Categories' secondaryText='Repeat Category Questions' answer={question.correct_answer} repeatQuestions={nextQuestion()} />
+        </>
+      )} */}
     </div>
   )
 }

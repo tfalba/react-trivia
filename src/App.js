@@ -88,7 +88,7 @@ function App () {
   let headerBarStyle = {
     // height: '150px',
     backgroundImage: `url(${generalImage})`,
-    width: '20%',
+    width: '150px',
     backgroundSize: 'contain',
     backgroundRepeatX: 'no-repeat',
     backgroundRepeatY: 'no-repeat'
@@ -119,7 +119,7 @@ function App () {
         <div className='flex-col-center category-set'>
 
           <div className='flex header'>
-            <div className='header-title'>TRACY'S TRIVIA TIME</div>
+            <div className='header-title'>TRIVIA TIME</div>
             <div className='header-bar' style={headerBarStyle} />
             {/* <img className='header-image' src={generalImage} alt='trivia-logo' /> */}
             {/* </div> */}
@@ -129,7 +129,7 @@ function App () {
             <DropdownButton
               className='levels'
               alignRight
-              title='Choose a difficulty level'
+              title='Difficulty level'
               id='dropdown-basic'
               onSelect={handleSelect}
             >
@@ -142,7 +142,7 @@ function App () {
             <DropdownButton
               className='levels'
               alignRight
-              title='Choose number of questions'
+              title='Number of questions'
               id='dropdown-basic'
               onSelect={handleSelectNumberQuestions}
             >
