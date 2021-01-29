@@ -2,13 +2,14 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 // import 'bootstrap/dist/css/bootstrap.min.css'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
+// import DropdownButton from 'react-bootstrap/DropdownButton'
+// import Dropdown from 'react-bootstrap/Dropdown'
 import './App.css'
 import Category from './components/Category.js'
 import Question from './components/Question.js'
 import cleanData from './components/CleanData.js'
 import generalImage from './images/general-logo.png'
+import DropdownComponent from './components/DropdownComponent'
 
 function App () {
   const [categories, setCategories] = useState([])
@@ -77,31 +78,31 @@ function App () {
   let footerStyle = {}
   if (isCategory) {
     footerStyle = {
-      height: '160px',
-      backgroundImage: `url(${isCategory.coverImg})`,
-      width: '100%',
-      backgroundSize: 'contain',
-      marginBottom: '100px'
+      // height: '160px',
+      backgroundImage: `url(${isCategory.coverImg})`
+      // width: '100%',
+      // backgroundSize: 'contain',
+      // marginBottom: '100px'
     }
   }
 
   let headerBarStyle = {
     // height: '150px',
-    backgroundImage: `url(${generalImage})`,
-    width: '150px',
-    backgroundSize: 'contain',
-    backgroundRepeatX: 'no-repeat',
-    backgroundRepeatY: 'no-repeat'
+    backgroundImage: `url(${generalImage})`
+    // width: '150px',
+    // backgroundSize: 'contain',
+    // backgroundRepeatX: 'no-repeat',
+    // backgroundRepeatY: 'no-repeat'
     // marginBottom: '100px'
   }
   if (isCategory) {
     headerBarStyle = {
       // height: '150px',
-      backgroundImage: `url(${isCategory.coverImg})`,
-      width: '20%',
-      backgroundSize: 'contain',
-      backgroundRepeatX: 'no-repeat',
-      backgroundRepeatY: 'no-repeat'
+      backgroundImage: `url(${isCategory.coverImg})`
+      // width: '20%',
+      // backgroundSize: 'contain',
+      // backgroundRepeatX: 'no-repeat',
+      // backgroundRepeatY: 'no-repeat'
       // marginBottom: '100px'
     }
   }
@@ -121,24 +122,12 @@ function App () {
           <div className='flex header'>
             <div className='header-title'>TRIVIA TIME</div>
             <div className='header-bar' style={headerBarStyle} />
-            {/* <img className='header-image' src={generalImage} alt='trivia-logo' /> */}
-            {/* </div> */}
-
           </div>
           <div className='flex difficulty-level'>
-            <DropdownButton
-              className='levels'
-              alignRight
-              title='Difficulty level'
-              id='dropdown-basic'
-              onSelect={handleSelect}
-            >
-              <Dropdown.Item eventKey='easy'>Easy</Dropdown.Item>
-              <Dropdown.Item eventKey='medium'>Medium</Dropdown.Item>
-              <Dropdown.Item eventKey='hard'>Hard</Dropdown.Item>
-              <Dropdown.Item eventKey='any'>Any</Dropdown.Item>
-            </DropdownButton>
+            <DropdownComponent onSelect={handleSelect} eventKey1='easy' eventKey2='medium' eventKey3='hard' eventKey4='any' title='Difficulty Level' />
             {difficulty && (<div className='difficulty-value'>{difficulty.toUpperCase()}</div>)}
+            <DropdownComponent onSelect={handleSelectNumberQuestions} eventKey1='3' eventKey2='5' eventKey3='10' eventKey4='20' title='Number of Questions' />
+            {/*
             <DropdownButton
               className='levels'
               alignRight
@@ -147,9 +136,10 @@ function App () {
               onSelect={handleSelectNumberQuestions}
             >
               <Dropdown.Item eventKey='3'>Three</Dropdown.Item>
+              <Dropdown.Item eventKey='5'>Five</Dropdown.Item>
               <Dropdown.Item eventKey='10'>Ten</Dropdown.Item>
               <Dropdown.Item eventKey='20'>Twenty</Dropdown.Item>
-            </DropdownButton>
+            </DropdownButton> */}
             {difficulty && (<div className='difficulty-value'>{numberQuestions}</div>)}
           </div>
           {/* <div>Number of Questions</div> */}

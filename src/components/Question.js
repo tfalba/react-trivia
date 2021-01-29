@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal'
 // import ModalLink from './ModalLink'
 // import { chooseAnswer, nextQuestion, submit } from '../question-functions'
 
-function Question ({ question, key, setQuestion, idxQuestion, numberQuestions, numberCorrect, countCorrect, setCategory, setQuestions, isCategory, questions }) {
+function Question ({ question, setQuestion, idxQuestion, numberQuestions, numberCorrect, countCorrect, setCategory, setQuestions, isCategory, questions }) {
   const [guess, setGuess] = useState('')
   const [submission, submitAnswer] = useState(false)
   const [show, setShow] = useState(false)
@@ -63,7 +63,7 @@ function Question ({ question, key, setQuestion, idxQuestion, numberQuestions, n
   const [previousShow, setPreviousShow] = useState()
   const [previousSubmission, setPreviousSubmission] = useState()
   const [previousGuess, setPreviousGuess] = useState()
-  const [previousCount, setPreviousCount] = useState()
+  // const [previousCount, setPreviousCount] = useState()
   if (show !== previousShow) {
     setShow(show)
     setPreviousShow(show)
@@ -77,10 +77,10 @@ function Question ({ question, key, setQuestion, idxQuestion, numberQuestions, n
     setGuess(guess)
     setPreviousGuess(guess)
   }
-  if (numberCorrect !== previousCount) {
-    countCorrect(numberCorrect)
-    setPreviousCount(numberCorrect)
-  }
+  // if (numberCorrect !== previousCount) {
+  //   countCorrect(numberCorrect)
+  //   setPreviousCount(numberCorrect)
+  // }
   return (
 
     <div className={(idxQuestion % 2 === 0) ? 'animate__animated animate__rotateInUpRight question-card' : 'animate__animated animate__rotateInUpLeft question-card'}>
