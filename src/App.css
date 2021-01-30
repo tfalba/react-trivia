@@ -21,8 +21,7 @@
 }
 
 body {
-  /* background-color: rgba(2, 15, 41, 0.988); */
-  /* background-image: linear-gradient( rgba(4, 15, 37, 0.991), rgba(29, 39, 59, 0.988)); */
+  background-color: rgba(2, 15, 41, 0.988);
   background-image: url("../src/images/dark-green-texture.jpg");
   background-size: cover;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -79,12 +78,7 @@ h2 {
 .flex-col-center {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 }
-/* .flex-col {
-  display: flex;
-  flex-direction: column;
-} */
 
 .answer-prompt {
   font-size: 26px;
@@ -108,8 +102,6 @@ h2 {
   padding-top: 10px;
   padding-left: 10px;
   width: 10%;
-  /* width: 130px;
-  height: 110px; */
 }
 
 .category-card {
@@ -121,9 +113,9 @@ h2 {
   background-image: linear-gradient( rgba(51, 78, 133, 0.891), rgba(2, 15, 41, 0.688));
   background-image: linear-gradient( rgb(9 21 9 / 62%), rgb(37 73 32 / 63%));
   background-image: linear-gradient( rgb(77 162 86 / 83%), rgb(24 69 19 / 73%));
-  background-image: linear-gradient( #43a047ba, #050e05b3);
-  background-image: linear-gradient( #051006c2, #18881833);
-  background-image: linear-gradient( #d8e2d9, #188818e3);
+  background-image: linear-gradient( #76ec7ac9, #050e0582);
+  /* background-image: linear-gradient( #051006c2, #18881833);
+  background-image: linear-gradient( #d8e2d9, #188818e3); */
   border: solid 4px rgba(86, 104, 141, 0.651);
   border: solid 4px rgba(14, 24, 17, 0.753);
 
@@ -139,7 +131,7 @@ h2 {
   padding-left: 4px;
   padding-right: 4px;
 }
-.answer-block div:hover div:last-child {
+.answer-block div div:last-child:hover {
   background-color: rgba(49, 218, 27, 0.815);
   background-color:rgba(206, 238, 27, 0.938);
   color: black;
@@ -469,4 +461,11 @@ h2 {
 
 .level-hard {
   background-color: red;
+}
+
+tspan {
+  fill: limegreen;
+}
+#chart-axis-1-tickLabels-2 tspan{
+  fill: white;
 }

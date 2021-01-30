@@ -1,16 +1,13 @@
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-// import DropdownButton from 'react-bootstrap/DropdownButton'
-// import Dropdown from 'react-bootstrap/Dropdown'
 import './App.css'
 import Category from './components/Category.js'
 import Question from './components/Question.js'
 import cleanData from './components/CleanData.js'
 import generalImage from './images/general-logo.png'
 import DropdownComponent from './components/DropdownComponent'
-import ResultsChart from './components/ResultsChart'
+import ResultsChart, { ResultsChartSingle } from './components/ResultsChart'
 
 function App () {
   const [categories, setCategories] = useState([])
@@ -96,58 +93,20 @@ function App () {
     setShow(false)
   }
 
-  let footerStyle = {}
-  if (isCategory) {
-    footerStyle = {
-      backgroundImage: `url(${isCategory.coverImg})`
-    }
-  }
-
-  let headerBarStyle = {
-    backgroundImage: `url(${generalImage})`
-  }
-  if (isCategory) {
-    headerBarStyle = {
-      backgroundImage: `url(${isCategory.coverImg})`
-    }
-  }
-  const handleSelect = (event) => {
-    setDifficulty(event)
-  }
-
-  const handleSelectNumberQuestions = (event) => {
-    setNumberQuestions(event)
-  }
-
   return (
     <div className='flex-col'>
       {(isCategory === null && gameComplete === false) && (
         <div className='flex-col-center category-set'>
-
           <div className='flex header'>
             <div className='header-title'>TRIVIA TIME</div>
-            <div className='header-bar' style={headerBarStyle} />
+            <div className='header-bar' style={{ backgroundImage: `url(${generalImage})` }} />
           </div>
           <div className='flex difficulty-level'>
-            <DropdownComponent onSelect={handleSelect} eventKey1='easy' eventKey2='medium' eventKey3='hard' eventKey4='any' title='Difficulty Level' />
+            <DropdownComponent onSelect={(e) => setDifficulty(e)} eventKey1='easy' eventKey2='medium' eventKey3='hard' eventKey4='any' title='Difficulty Level' />
             {difficulty && (<div className='difficulty-value'>{difficulty.toUpperCase()}</div>)}
-            <DropdownComponent onSelect={handleSelectNumberQuestions} eventKey1='3' eventKey2='5' eventKey3='10' eventKey4='20' title='Number of Questions' />
-            {/*
-            <DropdownButton
-              className='levels'
-              alignRight
-              title='Number of questions'
-              id='dropdown-basic'
-              onSelect={handleSelectNumberQuestions}
-            >
-              <Dropdown.Item eventKey='3'>Three</Dropdown.Item>
-              <Dropdown.Item eventKey='5'>Five</Dropdown.Item>
-              <Dropdown.Item eventKey='10'>Ten</Dropdown.Item>
-              <Dropdown.Item eventKey='20'>Twenty</Dropdown.Item>
-            </DropdownButton> */}
+            <DropdownComponent onSelect={(e) => setNumberQuestions(e)} eventKey1='3' eventKey2='5' eventKey3='10' eventKey4='20' title='Number of Questions' />
             {difficulty && (<div className='difficulty-value'>{numberQuestions}</div>)}
           </div>
-          {/* <div>Number of Questions</div> */}
           <div className='flex-center question-block animate__animated animate__fadeInUp'>
             {categories.map((category, idx) => (<Category setCategory={setCategory} category={category} key={category.id} />
             ))}
@@ -160,7 +119,7 @@ function App () {
           <div className='flex-col category-set'>
             <div className='flex header'>
               <div className='header-title'>{isCategory.name}</div>
-              <div className='header-bar' style={headerBarStyle} />
+              <div className='header-bar' style={{ backgroundImage: `url(${isCategory.coverImg})` }} />
             </div>
 
           </div>
@@ -179,23 +138,27 @@ function App () {
                 guess={guess} setGuess={setGuess} submission={submission} submitAnswer={submitAnswer} show={show} setShow={setShow}
               />
             )}
-            <div className='footer' style={footerStyle} />
+            <div className='footer' style={{ backgroundImage: `url(${isCategory.coverImg})` }} />
           </div>
         </div>
       )}
       {gameComplete && (
-
         <>
           <div className='flex header'>
             <div className='header-title'>TRIVIA TIME</div>
-            <div className='header-bar' style={headerBarStyle} />
+            <div className='header-bar' style={{ backgroundImage: `url(${generalImage})` }} />
           </div>
           <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
-          <ResultsChart
-            difficulty={difficulty} numberQuestions={numberQuestions} numberCorrect={numberCorrect}
-            numberEasy={numberEasy} correctEasy={correctEasy} numberMedium={numberMedium} correctMedium={correctMedium}
-            numberHard={numberHard} correctHard={correctHard}
-          />
+          {(difficulty === 'any')
+            ? (
+              <ResultsChart
+                difficulty={difficulty} numberQuestions={numberQuestions} numberCorrect={numberCorrect}
+                numberEasy={numberEasy} correctEasy={correctEasy} numberMedium={numberMedium} correctMedium={correctMedium}
+                numberHard={numberHard} correctHard={correctHard}
+              />)
+            : (
+              <ResultsChartSingle difficulty={difficulty} numberQuestions={numberQuestions} numberCorrect={numberCorrect} />
+              )}
         </>
       )}
     </div>
