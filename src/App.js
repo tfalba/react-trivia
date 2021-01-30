@@ -10,6 +10,7 @@ import Question from './components/Question.js'
 import cleanData from './components/CleanData.js'
 import generalImage from './images/general-logo.png'
 import DropdownComponent from './components/DropdownComponent'
+import ResultsChart from './components/ResultsChart'
 
 function App () {
   const [categories, setCategories] = useState([])
@@ -37,6 +38,16 @@ function App () {
   const [numberCorrect, countCorrect] = useState(0)
   const [difficulty, setDifficulty] = useState('any')
   const [numberQuestions, setNumberQuestions] = useState(10)
+  const [numberEasy, countEasy] = useState(0)
+  const [numberMedium, countMedium] = useState(0)
+  const [numberHard, countHard] = useState(0)
+  const [correctEasy, countCorrectEasy] = useState(0)
+  const [correctMedium, countCorrectMedium] = useState(0)
+  const [correctHard, countCorrectHard] = useState(0)
+  const [gameComplete, setGameComplete] = useState(false)
+  const [guess, setGuess] = useState('')
+  const [submission, submitAnswer] = useState(false)
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     if (isCategory && difficulty && token && numberQuestions) {
@@ -73,37 +84,31 @@ function App () {
     setQuestions([])
     setQuestion(0)
     countCorrect(0)
+    setGameComplete(false)
+    countEasy(0)
+    countMedium(0)
+    countHard(0)
+    countCorrectEasy(0)
+    countCorrectMedium(0)
+    countCorrectHard(0)
+    setGuess('')
+    submitAnswer(false)
+    setShow(false)
   }
 
   let footerStyle = {}
   if (isCategory) {
     footerStyle = {
-      // height: '160px',
       backgroundImage: `url(${isCategory.coverImg})`
-      // width: '100%',
-      // backgroundSize: 'contain',
-      // marginBottom: '100px'
     }
   }
 
   let headerBarStyle = {
-    // height: '150px',
     backgroundImage: `url(${generalImage})`
-    // width: '150px',
-    // backgroundSize: 'contain',
-    // backgroundRepeatX: 'no-repeat',
-    // backgroundRepeatY: 'no-repeat'
-    // marginBottom: '100px'
   }
   if (isCategory) {
     headerBarStyle = {
-      // height: '150px',
       backgroundImage: `url(${isCategory.coverImg})`
-      // width: '20%',
-      // backgroundSize: 'contain',
-      // backgroundRepeatX: 'no-repeat',
-      // backgroundRepeatY: 'no-repeat'
-      // marginBottom: '100px'
     }
   }
   const handleSelect = (event) => {
@@ -116,7 +121,7 @@ function App () {
 
   return (
     <div className='flex-col'>
-      {(isCategory === null) && (
+      {(isCategory === null && gameComplete === false) && (
         <div className='flex-col-center category-set'>
 
           <div className='flex header'>
@@ -150,7 +155,7 @@ function App () {
         </div>
       )}
 
-      {isCategory && (
+      {(isCategory && gameComplete === false) && (
         <div className='flex-col'>
           <div className='flex-col category-set'>
             <div className='flex header'>
@@ -162,11 +167,36 @@ function App () {
           <div className='flex-col question-block'>
             <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
             {questions[idxQuestion] && (
-              <Question question={questions[idxQuestion]} key={idxQuestion} setQuestion={setQuestion} idxQuestion={idxQuestion} numberQuestions={numberQuestions} numberCorrect={numberCorrect} countCorrect={countCorrect} setCategory={setCategory} setQuestions={setQuestions} isCategory={isCategory} questions={questions} />
+              <Question
+                question={questions[idxQuestion]} key={idxQuestion} setQuestion={setQuestion}
+                idxQuestion={idxQuestion} numberQuestions={numberQuestions} numberCorrect={numberCorrect}
+                countCorrect={countCorrect} setCategory={setCategory} setQuestions={setQuestions}
+                isCategory={isCategory} questions={questions} numberEasy={numberEasy} countEasy={countEasy}
+                numberMedium={numberMedium} countMedium={countMedium} numberHard={numberHard}
+                countHard={countHard} correctEasy={correctEasy} countCorrectEasy={countCorrectEasy}
+                correctMedium={correctMedium} countCorrectMedium={countCorrectMedium} correctHard={correctHard}
+                countCorrectHard={countCorrectHard} gameComplete={gameComplete} setGameComplete={setGameComplete}
+                guess={guess} setGuess={setGuess} submission={submission} submitAnswer={submitAnswer} show={show} setShow={setShow}
+              />
             )}
             <div className='footer' style={footerStyle} />
           </div>
         </div>
+      )}
+      {gameComplete && (
+
+        <>
+          <div className='flex header'>
+            <div className='header-title'>TRIVIA TIME</div>
+            <div className='header-bar' style={headerBarStyle} />
+          </div>
+          <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
+          <ResultsChart
+            difficulty={difficulty} numberQuestions={numberQuestions} numberCorrect={numberCorrect}
+            numberEasy={numberEasy} correctEasy={correctEasy} numberMedium={numberMedium} correctMedium={correctMedium}
+            numberHard={numberHard} correctHard={correctHard}
+          />
+        </>
       )}
     </div>
   )

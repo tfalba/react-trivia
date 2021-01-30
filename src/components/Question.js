@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import Confetti from 'react-confetti'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -6,10 +6,14 @@ import Modal from 'react-bootstrap/Modal'
 // import ModalLink from './ModalLink'
 // import { chooseAnswer, nextQuestion, submit } from '../question-functions'
 
-function Question ({ question, setQuestion, idxQuestion, numberQuestions, numberCorrect, countCorrect, setCategory, setQuestions, isCategory, questions }) {
-  const [guess, setGuess] = useState('')
-  const [submission, submitAnswer] = useState(false)
-  const [show, setShow] = useState(false)
+function Question ({
+  question, setQuestion, idxQuestion, numberQuestions, numberCorrect, countCorrect,
+  setCategory, setQuestions, isCategory, questions, numberEasy, countEasy, numberMedium, countMedium,
+  numberHard, countHard, correctEasy, countCorrectEasy, correctMedium, countCorrectMedium,
+  correctHard, countCorrectHard, gameComplete, setGameComplete, guess, setGuess, submission, submitAnswer,
+  show, setShow
+}) {
+  // These all need to be in App and handled similar to countCorrect
 
   function chooseAnswer (answer) {
     if (!submission) {
@@ -17,69 +21,73 @@ function Question ({ question, setQuestion, idxQuestion, numberQuestions, number
     }
   }
   function nextQuestion () {
-    console.log(show)
-
     setShow(false)
-    console.log(show)
     setQuestion(idxQuestion + 1)
     submitAnswer(false)
+    console.log(numberEasy, correctEasy)
+    console.log(numberCorrect)
     if (idxQuestion === numberQuestions - 1) {
-      returnToCategory(null, [])
+      // returnToCategory(null, [])
+      setGameComplete(true)
+      setCategory(null)
+      setQuestions([])
     }
   }
-  function returnToCategory (categoryOption, questionsOption) {
-    setCategory(categoryOption)
-    setQuestions(questionsOption)
-    setQuestion(0)
-    countCorrect(0)
-  }
+  // function returnToCategory (categoryOption, questionsOption) {
+  //   setCategory(categoryOption)
+  //   setQuestions(questionsOption)
+  //   setQuestion(0)
+  //   countCorrect(0)
+  // }
 
   function submit () {
-    console.log({ numberCorrect })
-    console.log(guess)
-    console.log(question.correct_answer)
     if (guess === question.correct_answer) {
       countCorrect(numberCorrect + 1)
+      if (question.difficulty === 'easy') {
+        countCorrectEasy(correctEasy + 1)
+        countEasy(numberEasy + 1)
+      } else if (question.difficulty === 'medium') {
+        countCorrectMedium(correctMedium + 1)
+        countMedium(numberMedium + 1)
+      } else {
+        countCorrectHard(correctHard + 1)
+        countHard(numberHard + 1)
+      }
     } else {
-      countCorrect(numberCorrect)
+      if (question.difficulty === 'easy') {
+        countEasy(numberEasy + 1)
+      } else if (question.difficulty === 'medium') {
+        countMedium(numberMedium + 1)
+      } else {
+        countHard(numberHard + 1)
+      }
     }
-    console.log(numberCorrect)
-    console.log(show)
+
     submitAnswer(true)
-    // HandleShow()
-
-    // setShow(true)
-    console.log(show)
     setShow(true)
-
-    // if (idxQuestion === numberQuestions - 1) {
-    //   let scheduledFunction = false
-    //   if (scheduledFunction) {
-    //     clearTimeout(scheduledFunction)
-    //   }
-    //   scheduledFunction = setTimeout(function () { setShow(true) }, 2000)
-    // }
   }
-  const [previousShow, setPreviousShow] = useState()
-  const [previousSubmission, setPreviousSubmission] = useState()
-  const [previousGuess, setPreviousGuess] = useState()
+  // const [previousShow, setPreviousShow] = useState()
+  // const [previousSubmission, setPreviousSubmission] = useState()
+  // const [previousGuess, setPreviousGuess] = useState()
+  // const [previousCorrectEasy, setPreviousCorrectEasy] = useState(0)
   // const [previousCount, setPreviousCount] = useState()
-  if (show !== previousShow) {
-    setShow(show)
-    setPreviousShow(show)
-  }
+  // if (show !== previousShow) {
+  //   setShow(show)
+  //   setPreviousShow(show)
+  // }
 
-  if (submission !== previousSubmission) {
-    submitAnswer(submission)
-    setPreviousSubmission(submission)
-  }
-  if (guess !== previousGuess) {
-    setGuess(guess)
-    setPreviousGuess(guess)
-  }
-  // if (numberCorrect !== previousCount) {
-  //   countCorrect(numberCorrect)
-  //   setPreviousCount(numberCorrect)
+  // if (submission !== previousSubmission) {
+  //   submitAnswer(submission)
+  //   setPreviousSubmission(submission)
+  // }
+  // if (guess !== previousGuess) {
+  //   setGuess(guess)
+  //   setPreviousGuess(guess)
+  // }
+
+  // if (correctEasy !== previousCorrectEasy) {
+  //   countEasy(correctEasy + 1)
+  //   setPreviousCorrectEasy(correctEasy + 1)
   // }
   return (
 
@@ -116,7 +124,7 @@ function Question ({ question, setQuestion, idxQuestion, numberQuestions, number
         <>
           <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
-              <Modal.Title>Correct!!!</Modal.Title>
+              <Modal.Title>Correct!!! {numberCorrect}</Modal.Title>
             </Modal.Header>
             <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
