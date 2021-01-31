@@ -27,4 +27,7 @@ Some things you are likely to want to do:
 
 TODOS:
 
-fix the scale for when it is 20 questions...
+check if answer mark is incorrect... SEEMS TO BE A PHONE GLITCH
+choose a new font
+give a message prompt when set is empty DONE
+change correct out of to current number of questions DONE

@@ -22,7 +22,7 @@ function ResultsChart ({
         <VictoryStack colorScale={['#00ff00', '#fdfcf34a']}>
           <VictoryBar
             data={dataCorrect} x='difficulty' y='correct'
-            style={{ data: { format: 0 }, labels: { fill: 'white' } }}
+            style={{ data: { format: 0 }, labels: { fill: '#dbd8d8' } }}
           />
           <VictoryBar
             data={dataTotal} x='difficulty' y='correct'
@@ -31,11 +31,11 @@ function ResultsChart ({
         <VictoryAxis
           dependentAxis
           label='Total Questions'
-          style={{ tickLabels: { fill: 'white', fontSize: '12px' }, axisLabel: { fill: 'white' } }}
+          style={{ tickLabels: { fill: '#dbd8d8', fontSize: '12px' }, axisLabel: { fill: '#dbd8d8', fontFamily: 'Potta One' } }}
         />
         <VictoryAxis
           label='Difficulty'
-          style={{ tickLabels: { fill: 'white', fontSize: '12px' }, axisLabel: { fill: 'white' } }}
+          style={{ tickLabels: { fill: '#dbd8d8', fontSize: '12px' }, axisLabel: { fill: '#dbd8d8', fontFamily: 'Potta One' } }}
         />
       </VictoryChart>
     </>
@@ -54,7 +54,7 @@ export const ResultsChartSingle = ({ difficulty, numberQuestions, numberCorrect 
       <VictoryStack colorScale={['#00ff00', '#fdfcf34a']}>
         <VictoryBar
           data={dataCorrect} x='difficulty' y='correct'
-          style={{ data: { format: 0 }, labels: { fill: 'white' } }}
+          style={{ data: { format: 0 }, labels: { fill: '#dbd8d8' } }}
         />
         <VictoryBar
           data={dataTotal} x='difficulty' y='correct'
@@ -63,12 +63,12 @@ export const ResultsChartSingle = ({ difficulty, numberQuestions, numberCorrect 
       <VictoryAxis
         dependentAxis
         label='Total Questions'
-        style={{ tickLabels: { fill: 'white', fontSize: '12px' }, axisLabel: { fill: 'white' } }}
+        style={{ tickLabels: { fill: '#dbd8d8', fontSize: '12px' }, axisLabel: { fill: '#dbd8d8', fontFamily: 'Potta One' } }}
 
       />
       <VictoryAxis
         label='Difficulty'
-        style={{ tickLabels: { fill: 'white', fontSize: '12px' }, axisLabel: { fill: 'white' } }}
+        style={{ tickLabels: { fill: '#dbd8d8', fontSize: '12px' }, axisLabel: { fill: '#dbd8d8', fontFamily: 'Potta One' } }}
       />
     </VictoryChart>
   )

@@ -88,7 +88,7 @@ function Question ({
         <>
           <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
-              <Modal.Title>Correct!!! Score: {numberCorrect} of {numberQuestions}</Modal.Title>
+              <Modal.Title>Correct!!! Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
             </Modal.Header>
             <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
@@ -104,7 +104,7 @@ function Question ({
         <>
           <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
-              <Modal.Title>Incorrect. Score: {numberCorrect} of {numberQuestions}</Modal.Title>
+              <Modal.Title>Incorrect. Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
             </Modal.Header>
             <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
@@ -119,7 +119,7 @@ function Question ({
         <>
           <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
-              <Modal.Title>Correct!!! Score: {numberCorrect} of {numberQuestions}</Modal.Title>
+              <Modal.Title>Correct!!! Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
             </Modal.Header>
             <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>
@@ -135,7 +135,7 @@ function Question ({
         <>
           <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
-              <Modal.Title>Incorrect. Score: {numberCorrect} of {numberQuestions}</Modal.Title>
+              <Modal.Title>Incorrect. Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
             </Modal.Header>
             <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
             <Modal.Footer>

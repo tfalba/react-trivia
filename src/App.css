@@ -179,10 +179,12 @@ h2 {
   /* padding-bottom: 30px; */
 }
 .category-card div {
-  line-height: 20px;
-  font-size: 25px;
-  color: black;
-  color: white;
+  font-family: 'Potta One', cursive;
+
+  line-height: 25px;
+  font-size: 22px;
+  color: rgb(150, 137, 137);
+  color: rgb(190, 179, 179);
 
   padding-top: 10px;
 }
@@ -202,10 +204,12 @@ h2 {
 }
 .return-categories {
   font-size: 30px;
+  margin-left: 20px;
+
 }
 .category-button:hover {
   text-underline-position: below;
-  background-color: rgba(2, 1, 16, 0.502);
+  background-color: rgba(92, 92, 95, 0.623);
 
 }
 
@@ -231,12 +235,14 @@ h2 {
   background-image: linear-gradient( #11111296, #151515bf);
 
   padding-left: 30px;
-  color: white;
+  color: rgb(219, 216, 216);
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
  .header-title {
+  font-family: 'Potta One', cursive;
+
   font-size: 70px;
   /* padding-top: 40px; */
   display: flex;
@@ -264,6 +270,8 @@ h2 {
 }
 h2 {
   font-size: 33px;
+  font-family: 'Potta One', cursive;
+
 }
 /* .dropdown-menu {
   background-color: black;
@@ -332,7 +340,7 @@ h2 {
   .circle, .circle-fill {
     width: 15px;
     height: 15px;
-    margin-top: 2px;
+    margin-top: 5px;
   }
   .header {
     /* display: flex; */
@@ -368,6 +376,9 @@ h2 {
     margin-top: 0;
     margin-bottom: 0;
   }
+  .footer {
+    height: 120px;
+  }
 
 }
 
@@ -381,6 +392,7 @@ h2 {
     padding: 0;
     margin: 0;
     line-height: 20px;
+    font-size: 20px;
   }
   .circle, .circle-fill {
     width: 15px;

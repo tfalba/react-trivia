@@ -107,8 +107,6 @@ function App () {
             <DropdownComponent onSelect={(e) => setNumberQuestions(e)} eventKey1='3' eventKey2='5' eventKey3='10' eventKey4='20' title='Number of Questions' />
             {difficulty && (<div className='difficulty-value'>{numberQuestions}</div>)}
           </div>
-          {/* Add animated component */}
-          {/* <div className='flex-center question-block animate__animated animate__fadeInUp'> */}
           <div className='flex-center question-block'>
 
             {categories.map((category, idx) => (<Category setCategory={setCategory} category={category} key={category.id} />
@@ -119,30 +117,44 @@ function App () {
 
       {(isCategory && gameComplete === false) && (
         <div className='flex-col'>
-          <div className='flex-col category-set'>
-            <div className='flex header'>
-              <div className='header-title'>{isCategory.name}</div>
-              <div className='header-bar' style={{ backgroundImage: `url(${isCategory.coverImg})` }} />
-            </div>
+          {(questions.length === 0)
+            ? (
+              <>
+                <div className='flex header'>
+                  <div className='header-title'>TRIVIA TIME</div>
+                  <div className='header-bar' style={{ backgroundImage: `url(${generalImage})` }} />
+                </div>
+                <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
+                <div class='question-card'>Not Enough Questions Available</div>
+              </>)
+            : (
+              <div className='flex-col'>
+                <div className='flex-col category-set'>
+                  <div className='flex header'>
+                    <div className='header-title'>{isCategory.name}</div>
+                    <div className='header-bar' style={{ backgroundImage: `url(${isCategory.coverImg})` }} />
+                  </div>
 
-          </div>
-          <div className='flex-col question-block'>
-            <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
-            {questions[idxQuestion] && (
-              <Question
-                question={questions[idxQuestion]} key={idxQuestion} setQuestion={setQuestion}
-                idxQuestion={idxQuestion} numberQuestions={numberQuestions} numberCorrect={numberCorrect}
-                countCorrect={countCorrect} setCategory={setCategory} setQuestions={setQuestions}
-                isCategory={isCategory} questions={questions} numberEasy={numberEasy} countEasy={countEasy}
-                numberMedium={numberMedium} countMedium={countMedium} numberHard={numberHard}
-                countHard={countHard} correctEasy={correctEasy} countCorrectEasy={countCorrectEasy}
-                correctMedium={correctMedium} countCorrectMedium={countCorrectMedium} correctHard={correctHard}
-                countCorrectHard={countCorrectHard} gameComplete={gameComplete} setGameComplete={setGameComplete}
-                guess={guess} setGuess={setGuess} submission={submission} submitAnswer={submitAnswer} show={show} setShow={setShow}
-              />
-            )}
-            <div className='footer' style={{ backgroundImage: `url(${isCategory.coverImg})` }} />
-          </div>
+                </div>
+                <div className='flex-col question-block'>
+                  <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
+                  {questions[idxQuestion] && (
+                    <Question
+                      question={questions[idxQuestion]} key={idxQuestion} setQuestion={setQuestion}
+                      idxQuestion={idxQuestion} numberQuestions={numberQuestions} numberCorrect={numberCorrect}
+                      countCorrect={countCorrect} setCategory={setCategory} setQuestions={setQuestions}
+                      isCategory={isCategory} questions={questions} numberEasy={numberEasy} countEasy={countEasy}
+                      numberMedium={numberMedium} countMedium={countMedium} numberHard={numberHard}
+                      countHard={countHard} correctEasy={correctEasy} countCorrectEasy={countCorrectEasy}
+                      correctMedium={correctMedium} countCorrectMedium={countCorrectMedium} correctHard={correctHard}
+                      countCorrectHard={countCorrectHard} gameComplete={gameComplete} setGameComplete={setGameComplete}
+                      guess={guess} setGuess={setGuess} submission={submission} submitAnswer={submitAnswer} show={show} setShow={setShow}
+                    />
+                  )}
+                  <div className='footer' style={{ backgroundImage: `url(${isCategory.coverImg})` }} />
+                </div>
+              </div>
+              )}
         </div>
       )}
       {gameComplete && (
