@@ -23,3 +23,8 @@ Some things you are likely to want to do:
 - If you add a session token you won't receive the same question twice
   - Get a token: https://opentdb.com/api_token.php?command=request
   - Add a token to a request: `&token=YOURTOKENHERE`
+
+
+TODOS:
+
+fix the scale for when it is 20 questions...

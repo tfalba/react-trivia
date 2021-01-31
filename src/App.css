@@ -22,11 +22,11 @@
 
 body {
   background-color: rgba(2, 15, 41, 0.988);
-  background-image: url("../src/images/dark-green-texture.jpg");
-  background-size: cover;
+  background-image: url("../src/images/black-texture-background.jpg");
+  /* background-size: contain; */
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 400;
-  color: white;
+  color: rgb(226, 225, 225);
 }
 h2 {
   font-size: 35px;
@@ -94,19 +94,14 @@ h2 {
 }
 
 .image {
-  margin-top: 20px;
-  width: 75%;
-}
-
-.header-image {
-  padding-top: 10px;
-  padding-left: 10px;
-  width: 10%;
+  margin-top: 15px;
+  width: 70%;
+  /* padding-bottom: 10px; */
 }
 
 .category-card {
-  width: 200px;
-  height: 210px;
+  width: 180px;
+  height: 190px;
   font-size: 25px;
   font: weight 800;
   color: white;
@@ -114,16 +109,18 @@ h2 {
   background-image: linear-gradient( rgb(9 21 9 / 62%), rgb(37 73 32 / 63%));
   background-image: linear-gradient( rgb(77 162 86 / 83%), rgb(24 69 19 / 73%));
   background-image: linear-gradient( #76ec7ac9, #050e0582);
+  background-image: linear-gradient( #43a04796, #15361670);
+  background-image: linear-gradient( #f0eff5e3, #101014e8);
   /* background-image: linear-gradient( #051006c2, #18881833);
   background-image: linear-gradient( #d8e2d9, #188818e3); */
   border: solid 4px rgba(86, 104, 141, 0.651);
   border: solid 4px rgba(14, 24, 17, 0.753);
 
-  border-radius: 15px;
-  margin: 15px;
+  /* border-radius: 80px; */
+  margin: 10px;
   padding: 3px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   text-align: center;
 }
 .answer-block div div:last-child {
@@ -150,7 +147,9 @@ h2 {
 } */
 .category-card:hover {
   background-image: linear-gradient( #051006c2, #18881833);
-  border: solid 4px rgba(22, 212, 79, 0.753);
+  background-image: linear-gradient( #cabaf011, #352e523f);
+
+  border: solid 4px rgba(240, 245, 242, 0.753);
 }
 .category-card:hover div {
   color: white;
@@ -160,9 +159,12 @@ h2 {
   display: flex;
   font-size: 25px;
   font: weight 800;
-  color: white;
+  /* color: darkslateblue; */
   background-image: linear-gradient( rgba(51, 78, 133, 0.891), rgba(2, 15, 41, 0.988));
   background-image: linear-gradient( #43a04796, #15361670);
+  background-image: linear-gradient( #7c4bf3d6, #1a0e517a);
+  background-image: linear-gradient( #9493983b, #5656583b);
+
   border: solid 4px rgba(14, 24, 17, 0.753);
   border-radius: 15px;
   margin: 20px;
@@ -170,14 +172,15 @@ h2 {
   /* padding-bottom: 30px; */
 }
 .category-card div {
-  /* height: 40px; */
-  font-size: 20px;
+  line-height: 20px;
+  font-size: 25px;
   color: black;
+  padding-top: 10px;
 }
 .category-button {
   font-size: 24px;
-  color: white;
-  background-color: rgba(2, 1, 16, 0.902);
+  color: rgb(219, 216, 216);
+  background-color: rgba(17, 16, 19, 0.902);
   border: solid 2px black;
   border-radius: 15px;
   margin: 5px;
@@ -213,19 +216,20 @@ h2 {
 }
 .header {
   display: flex;
-  height: 20vh;
-  height: 200px;
   background-image: linear-gradient( rgba(51, 78, 133, 0.851), rgba(2, 15, 41, 0.788));
   background-image: linear-gradient( rgb(13 66 31 / 58%), rgb(35 97 39 / 76%));
   background-image: linear-gradient( rgb(12 58 28 / 80%), rgb(9 19 10 / 26%));
+  background-image: linear-gradient( #11111296, #151515bf);
+
   padding-left: 30px;
   color: white;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 
  .header-title {
   font-size: 70px;
-  padding-top: 40px;
+  /* padding-top: 40px; */
   display: flex;
   align-content: center;
   padding-right: 15px;
@@ -233,7 +237,7 @@ h2 {
 
 .question-block {
   /* height: 90vmax; */
-  padding-top: 20px;
+  padding-top: 30px;
 }
 
 .question-title {
@@ -260,8 +264,9 @@ h2 {
   width: auto;
 }
 #dropdown-basic {
-  background-color: rgba(26, 48, 23, 0.774);
+  background-color: rgba(10, 9, 10, 0.774);
   border-radius: 10px;
+  padding: 0;
 }
 
 .level-easy, .level-medium, .level-hard {
@@ -278,7 +283,7 @@ h2 {
 }
 
 .btn {
-  background-color: rgba(27, 85, 32, 0.466);
+  background-color: rgba(53, 27, 85, 0.575);
   font-size: 18px;
   border: solid 2px grey;
   border: solid 4px rgba(14, 24, 17, 0.89);
@@ -304,7 +309,7 @@ h2 {
   margin-left: 30px;
   margin-right: 20px;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 10px;
   /* justify-content: flex-end; */
 }
 
@@ -322,7 +327,7 @@ h2 {
   }
   .header {
     /* display: flex; */
-    height: 110px;
+    /* height: 110px; */
     padding-top: 15px;
     padding-left: 10px;
   }
@@ -330,11 +335,11 @@ h2 {
     font-size: 35px;
     margin-bottom:0;
     margin-top:0;
-    padding-top: 20px;
-    padding-bottom: 10px;
+    /* padding-top: 20px; */
+    /* padding-bottom: 10px; */
   }
   .question-block {
-    padding-top: 5px;
+    padding-top: 2px;
   }
   .question-title {
     font-size: 18px;
@@ -359,6 +364,15 @@ h2 {
 
 
 @media (max-width: 480px) {
+  .category-card {
+    width: 150px;
+    height: 150px;
+  }
+  .category-card div {
+    padding: 0;
+    margin: 0;
+    line-height: 20px;
+  }
   .circle, .circle-fill {
     width: 15px;
     height: 15px;
@@ -375,26 +389,26 @@ h2 {
     margin-bottom: 0;
   }
   .difficulty-level {
-    margin-top:10px;
+    margin-top:0;
   }
   .header-bar {
-    width: 95px;
+    width: 75px;
   }
   .header {
     /* display: flex; */
-    height: 110px;
+    /* height: 110px; */
     padding-top: 15px;
     padding-left: 10px;
   }
   .header-title {
-    font-size: 27px;
+    font-size: 35px;
     margin-bottom:0;
     margin-top:0;
-    padding-top: 20px;
-    padding-bottom: 10px;
+    /* padding-top: 20px;
+    padding-bottom: 10px; */
   }
   .question-block {
-    padding-top: 10px;
+    padding-top: 0;
   }
   .question-title {
     font-size: 18px;
@@ -421,11 +435,12 @@ h2 {
 .modal-content {
   background-color:rgba(69, 245, 16, 0.899);
   color: black;
+  width: 350px;
 }
 
 .modal {
   position: fixed;
-  top: 35vh;
+  top: 30vh;
   /* left: 0; */
   width: 100%;
   /* height: 40%; */
@@ -456,7 +471,7 @@ h2 {
   background-color: green; 
 }
 .level-medium {
-  background-color: rgb(219, 144, 5);
+  background-color: #ef6c00;
 }
 
 .level-hard {
