@@ -19,7 +19,7 @@ function ResultsChart ({
   return (
     <>
       <VictoryChart style={{ background: { fill: '#00000078' } }} domainPadding={40} width={600} height={300} padding={{ top: 20, left: 80, right: 50, bottom: 50 }} domain={(numberQuestions < 15) ? { y: [1, 9] } : { y: [1, 19] }}>
-        <VictoryStack colorScale={['#00ff00', '#edece126']}>
+        <VictoryStack colorScale={['#00ff00', '#fdfcf34a']}>
           <VictoryBar
             data={dataCorrect} x='difficulty' y='correct'
             style={{ data: { format: 0 }, labels: { fill: 'white' } }}
@@ -51,7 +51,7 @@ export const ResultsChartSingle = ({ difficulty, numberQuestions, numberCorrect 
   return (
 
     <VictoryChart style={{ background: { fill: '#00000078' } }} domainPadding={40} width={600} height={300} padding={{ top: 20, left: 80, right: 50, bottom: 50 }} domain={(numberQuestions < 15) ? { y: [1, 9] } : { y: [1, 19] }}>
-      <VictoryStack colorScale={['#00ff00', '#edece152']}>
+      <VictoryStack colorScale={['#00ff00', '#fdfcf34a']}>
         <VictoryBar
           data={dataCorrect} x='difficulty' y='correct'
           style={{ data: { format: 0 }, labels: { fill: 'white' } }}

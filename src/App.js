@@ -107,7 +107,10 @@ function App () {
             <DropdownComponent onSelect={(e) => setNumberQuestions(e)} eventKey1='3' eventKey2='5' eventKey3='10' eventKey4='20' title='Number of Questions' />
             {difficulty && (<div className='difficulty-value'>{numberQuestions}</div>)}
           </div>
-          <div className='flex-center question-block animate__animated animate__fadeInUp'>
+          {/* Add animated component */}
+          {/* <div className='flex-center question-block animate__animated animate__fadeInUp'> */}
+          <div className='flex-center question-block'>
+
             {categories.map((category, idx) => (<Category setCategory={setCategory} category={category} key={category.id} />
             ))}
           </div>
