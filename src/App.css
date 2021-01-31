@@ -23,7 +23,7 @@
 body {
   background-color: rgba(2, 15, 41, 0.988);
   background-image: url("../src/images/black-texture-background.jpg");
-  /* background-size: contain; */
+  background-size: contain;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 400;
   color: rgb(226, 225, 225);
