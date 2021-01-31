@@ -19,6 +19,7 @@ function Question ({
     setShow(false)
     setQuestion(idxQuestion + 1)
     submitAnswer(false)
+    setGuess('')
     if (idxQuestion === numberQuestions - 1) {
       setGameComplete(true)
       setCategory(null)
