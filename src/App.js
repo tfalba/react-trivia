@@ -125,7 +125,7 @@ function App () {
                   <div className='header-bar' style={{ backgroundImage: `url(${generalImage})` }} />
                 </div>
                 <button className='return-categories category-button' onClick={returnToCategory}>Return to Categories</button>
-                <div class='question-card'>Not Enough Questions Available</div>
+                <div className='question-card'>Not Enough Questions Available</div>
               </>)
             : (
               <div className='flex-col'>

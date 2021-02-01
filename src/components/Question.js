@@ -1,7 +1,6 @@
 import Confetti from 'react-confetti'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-// import ModalLink from './ModalLink'
 
 function Question ({
   question, setQuestion, idxQuestion, numberQuestions, numberCorrect, countCorrect,
@@ -29,6 +28,7 @@ function Question ({
 
   function submit () {
   //  How can I make this if block into a separate function?
+    console.log(submission)
     if (guess === question.correct_answer) {
       countCorrect(numberCorrect + 1)
       if (question.difficulty === 'easy') {
@@ -59,12 +59,9 @@ function Question ({
       <div className='flex-sa'>
         <div className=''>
           <h2>Question {`#${idxQuestion + 1}`} of {numberQuestions}
-            {(question.difficulty === 'easy') && (
-              <span className='level-easy answer-block'>Level: {question.difficulty.toUpperCase()}</span>)}
-            {(question.difficulty === 'medium') && (
-              <span className='level-medium answer-block'>Level: {question.difficulty.toUpperCase()}</span>)}
-            {(question.difficulty === 'hard') && (
-              <span className='level-hard answer-block'>Level: {question.difficulty.toUpperCase()}</span>)}
+            {(question.difficulty !== 'any') && (
+              <span className={question.difficulty && (`level-${question.difficulty} answer-block`)}>Level: {question.difficulty.toUpperCase()}</span>
+            )}
           </h2>
           <div className='question-title'>{question.question}</div>
           <div className='flex-col answer-block'>{question.shuffledAnswers.map((answer, idx) =>
@@ -75,79 +72,37 @@ function Question ({
           )}
           </div>
           <div className='flex'>
-            {(!submission) && (
-              <button className='category-button' onClick={submit}>Submit</button>
-            )}
-            {submission && (
-              <div className='category-button'>Submit</div>
-            )}
+            {(guess === '')
+              ? <button className='category-button'>Submit</button>
+              : <button className='category-button' onClick={submit}>Submit</button>}
           </div>
         </div>
       </div>
-      {(submission && guess === question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
+      {submission && (
         <>
           <Modal show={show} onHide={nextQuestion}>
             <Modal.Header closeButton>
-              <Modal.Title>Correct!!! Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
+              <Modal.Title>{(guess === question.correct_answer)
+                ? `Correct!!! Score: ${numberCorrect} of ${idxQuestion + 1}`
+                : `Incorrect. Score: ${numberCorrect} of ${idxQuestion + 1}`}
+              </Modal.Title>
             </Modal.Header>
-            <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
+            <Modal.Body>{(guess === question.correct_answer)
+              ? 'Yes'
+              : 'No'}
+              , the answer is {question.correct_answer}!
+            </Modal.Body>
             <Modal.Footer>
               <Button variant='primary' onClick={nextQuestion}>
-                Next Question
+                {(idxQuestion < numberQuestions - 1)
+                  ? 'Next Question'
+                  : 'See Score Summary'}
               </Button>
             </Modal.Footer>
           </Modal>
           <Confetti />
         </>
       )}
-      {(submission && guess !== question.correct_answer && (idxQuestion < numberQuestions - 1)) && (
-        <>
-          <Modal show={show} onHide={nextQuestion}>
-            <Modal.Header closeButton>
-              <Modal.Title>Incorrect. Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
-            <Modal.Footer>
-              <Button variant='primary' onClick={nextQuestion}>
-                Next Question
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </>
-      )}
-      {(submission && guess === question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
-        <>
-          <Modal show={show} onHide={nextQuestion}>
-            <Modal.Header closeButton>
-              <Modal.Title>Correct!!! Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Yes, the answer is {question.correct_answer}!</Modal.Body>
-            <Modal.Footer>
-              <Button variant='primary' onClick={nextQuestion}>
-                See Score Summary
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          <Confetti />
-        </>
-      )}
-      {(submission && guess !== question.correct_answer && (idxQuestion === numberQuestions - 1)) && (
-        <>
-          <Modal show={show} onHide={nextQuestion}>
-            <Modal.Header closeButton>
-              <Modal.Title>Incorrect. Score: {numberCorrect} of {idxQuestion + 1}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>No, the answer is {question.correct_answer}!</Modal.Body>
-            <Modal.Footer>
-              <Button variant='primary' onClick={nextQuestion}>
-                See Score Summary
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          <Confetti />
-        </>
-      )}
-
     </div>
   )
 }
